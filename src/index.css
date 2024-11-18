@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap');
+
+* {    
+   font-family: "Young Serif", serif;
+   font-weight: 400;
+   font-style: normal;
+ }
+  
+body{
+color: rgb(74, 98, 66);
+background-color: rgb(194, 184, 174);
+}
+
+:root {
+    --color-primary-1: #fce8da;
+    --color-primary-2: #ffab5890;
+    --color-primary-3: #ff9e62;
+    --color-primary-4: #ce874d;
+    --color-primary-5: #ff9f45;
+    --color-primary-6: #ca7641;
+
+    --color-neutral-0: #fff;
+    --color-neutral-1: #1d1d1d;
+}
+
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-primary-1);
+}
+
+section {
+    padding: 28px 8%;
+}

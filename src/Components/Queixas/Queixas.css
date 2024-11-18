@@ -1,0 +1,216 @@
+/* ================== */
+/* Seção "Queixas" - Ocupa toda a largura */
+/* ================== */
+#queixas {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70vw; /* Largura total da tela */
+    height: 60vh; /* Seção com altura ajustada */
+    background-color: #f3c9a6;
+    padding: 40px;
+    margin-left: 15%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+   
+    transition: all 0.3s ease-in-out;
+}
+
+
+/* ================== */
+/* Efeito Hover para a Seção */
+#queixas:hover {
+    background-color: #f0e7d6; /* Cor de fundo muda ao passar o mouse */
+    box-shadow: 0 6px 40px rgba(0, 0, 0, 0.15); /* Sombra mais intensa */
+}
+
+/* ================== */
+/* Forma Circular de Background (Shape) */
+#queixas:hover::before {
+    opacity: 0.25;
+}
+
+/* ================== */
+/* Título da Seção */
+.queixa-titulo {
+    font-size: 2.5rem; /* Tamanho de fonte maior */
+    font-weight: 700;
+    color: #917861;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding-bottom: 5%; /* Reduzido para subir mais */
+    margin-top: -10%; /* Adicionando margem superior negativa para subir mais */
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.queixa-titulo:hover {
+    color: #bd8b7e; /* Cor de destaque no hover */
+}
+
+/* ================== */
+/* Container de Slides (deslizamento) */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%; /* Ocupa 100% da largura do container pai */
+    position: relative;
+    overflow: hidden;
+}
+
+/* ================== */
+/* Estilo para os Slides - Diminuindo a largura dos cards */
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffeabe;
+    border-radius: 15px;
+    margin: 0 10px; /* Diminui a margem entre os cards */
+    padding: 15px; /* Reduz o padding dentro do card */
+    height: 20vh; /* Definindo a altura do card */
+    width: 20vw; /* Ajuste de largura (diminui o tamanho) */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ================== */
+
+/* ================== */
+/* Efeito de Hover nos Slides */
+.swiper-slide:hover {
+    transform: translateY(-5px); /* Elevação suave */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombras leves */
+}
+
+.swiper-slide:hover::after {
+    opacity: 0.2;
+}
+
+/* ================== */
+/* Estilo do Texto Dentro do Slide */
+.txquadro {
+    font-size: 20px; /* Diminuindo o tamanho da fonte */
+    color: #9e4d0a;
+    text-align: center;
+    line-height: 1.5;
+    z-index: 1;
+    position: relative;
+    transition: color 0.3s ease;
+
+    
+}
+.wavy-line {
+    --s: 44px; /* tamanho da onda */
+    --b: 16px; /* espessura da linha */
+    --m: 0.4; /* curvatura da onda [0 2] */
+    
+    background: #a2a86a; /* Cor da linha */
+    --R: calc(var(--s) * sqrt(var(--m) * var(--m) + 1) + var(--b) / 2);
+    height: calc(2 * var(--R)); /* Altura da linha ondulada */
+    width: 100%; /* Largura total */
+    
+    /* Gradiente para a máscara */
+    --_g: #0000 calc(99% - var(--b)), #000 calc(101% - var(--b)) 99%, #0000 101%;
+    mask:
+        radial-gradient(var(--R) at left 50% bottom calc(-1 * var(--m) * var(--s)), var(--_g)) 
+        calc(50% - 2 * var(--s)) calc(50% - var(--s) / 2 - var(--b) / 2) / calc(4 * var(--s)) calc(var(--s) + var(--b)) repeat-x,
+        radial-gradient(var(--R) at left 50% top calc(-1 * var(--m) * var(--s)), var(--_g)) 
+        50% calc(50% + var(--s) / 2 + var(--b) / 2) / calc(4 * var(--s)) calc(var(--s) + var(--b)) repeat-x;
+}
+  
+
+.txquadro:hover {
+    color: #d15c25; /* Cor de destaque no hover */
+}
+
+/* ================== */
+/* Botões de Navegação */
+.swiper-button-prev,
+.swiper-button-next {
+    height: 45px; /* Ajustando a altura dos botões */
+    width: 45px; /* Ajustando a largura dos botões */
+    background-color: #fa9230;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.swiper-button-prev {
+    left: 20px;
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    background-color: #f0c0a0;
+    transform: scale(1.1);
+}
+
+/* ================== */
+/* Responsividade para telas menores */
+/* ================== */
+@media (max-width: 768px) {
+    #queixas {
+        height: 50vh; /* Seção mais compacta para telas menores */
+        padding: 30px;
+    }
+
+    .queixa-titulo {
+        font-size: 2rem;
+    }
+
+    .swiper-slide {
+        height: 160px; /* Diminuindo a altura do card em telas menores */
+        width: 220px; /* Diminuindo a largura do card em telas menores */
+    }
+
+    .txquadro {
+        font-size: 14px;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    #queixas {
+        height: 40vh; /* Seção bem compacta */
+        padding: 20px;
+    }
+
+    .queixa-titulo {
+        font-size: 1.8rem;
+    }
+
+    .swiper-slide {
+        height: 140px; /* Diminuindo ainda mais os cards */
+        width: 200px; /* Diminuindo a largura ainda mais */
+    }
+
+    .txquadro {
+        font-size: 12px;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        height: 35px;
+        width: 35px;
+    }
+}

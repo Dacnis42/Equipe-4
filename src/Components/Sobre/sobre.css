@@ -1,0 +1,227 @@
+/* Seção Sobre */
+#sobre {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 80vh;
+margin-bottom: 10%;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255, 207, 175, 0.747);
+  box-shadow: 0 8px 30px rgba(206, 57, 57, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  position: relative;
+}
+
+#sobre:hover {
+  transform: translateY(-5px);
+ 
+}
+
+#sobre::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 400px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  #sobre {
+    flex-direction: column;
+    padding: 40px 20px;
+    margin: 40px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  #sobre {
+    flex-direction: column;
+    padding: 30px 15px;
+    margin: 30px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #sobre {
+    flex-direction: column;
+    padding: 25px 10px;
+    margin: 20px 10px;
+  }
+}
+
+/* Imagem */
+.figure {
+  flex: 0 0 40%; /* A imagem ocupará 40% da largura da seção */
+  padding: 15px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.figure-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Efeito de zoom suave na imagem */
+.figure-img:hover {
+  transform: scale(1.05);
+}
+
+/* Conteúdo da descrição */
+.conteudo {
+  flex: 1; /* Permite que o conteúdo ocupe o restante do espaço disponível */
+  padding: 0 30px;
+  text-align: center; /* Centraliza o texto dentro da área do conteúdo */
+  z-index: 1;
+  color:#e7a97f;
+}
+
+/* Título principal */
+.titulo {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color:#ff835e;
+  margin-bottom: 20px; /* Aumentado para dar mais espaçamento */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Quando passar o mouse sobre o título */
+.titulo:hover {
+  color: #f5a996;
+  transform: translateY(-8px); /* Levanta mais ao passar o mouse */
+}
+
+/* Descrição */
+.descricao {
+  font-size: 1.4rem;
+  color:#ff835e;
+ 
+  margin-bottom: 25px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* Formações e especialidades */
+h4 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color:#ff835e;
+  text-align: center;
+}
+
+ul {
+  color:#ff835e;
+  list-style: none;
+  text-align: center;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+/* Ícones de redes sociais */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.social-icons a {
+  font-size: 2.5rem;
+  color:#ff835e;
+ 
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  color:#ff835e;
+
+  transform: scale(1.2);
+}
+
+/* Efeito de transição suave para ícones sociais */
+.social-icons a:hover {
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Contato */
+.contato {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.contato p {
+  font-size: 1.2rem;
+  color:#ff835e;
+}
+
+.contato a {
+  color:#ff835e;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contato a:hover {
+  color: #4e4848;
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .titulo {
+    font-size: 2.5rem;
+  }
+
+  .descricao {
+    font-size: 1.2rem;
+  }
+
+  h4 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 2.2rem;
+  }
+
+  .descricao {
+    font-size: 1.1rem;
+  }
+
+  h4 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo {
+    font-size: 1.8rem;
+  }
+
+  .descricao {
+    font-size: 1rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+}

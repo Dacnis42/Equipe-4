@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+#servicos {
+    display: flex; /* Adiciona flexbox ao contêiner */
+    flex-direction: column; /* Coloca o título acima dos cards */
+    align-items: center; /* Centraliza horizontalmente */
+    width: 100%; /* Certifique-se de que o contêiner ocupa toda a largura disponível */
+    margin-top: 10%; /* Espaço acima do contêiner, se necessário */
+    height: 70vh;
+    margin-bottom: 10%; /* Espaço abaixo do contêiner, se necessário */
+  
+
+}
+.card-container {
+    gap: 10%;
+    margin-right: 5%;
+    height: 100vh; /* Alterado para ocupar toda a altura da tela */
+    display: flex; /* Flexbox para alinhar os cards */
+    justify-content: center; /* Centraliza os cards horizontalmente */
+    align-items: flex-start; /* Alinha os cards no topo do contêiner */
+    padding-top: 5%; /* Ajuste a quantidade de espaço para mover o card para baixo */
+    width: 100%; /* Certifique-se de que o contêiner ocupa toda a largura disponível */
+}
+
+.card {
+    display: flex;
+    flex-direction: row; /* Organiza o conteúdo interno horizontalmente */
+    justify-content: center; /* Centraliza o conteúdo do card horizontalmente */
+    align-items: center; /* Centraliza o conteúdo do card verticalmente */
+    width: 50vh; /* Ajuste a largura conforme necessário */
+    height: 50vh; /* Tamanho do card, ajustável */
+    background-color: #f5be9ed3;
+    border-radius: 50px;
+    box-shadow: 0px 35px 80px rgba(0, 0, 0, 0.15);
+    transition: 0.5s; /* Transição suave */
+    position: relative; /* Necessário para posicionamento, caso haja elementos internos */
+}
+
+
+.servicos-titulo {
+    color: #ff9564;
+    font-size: 3rem;
+    margin-right: 5%;
+    text-align: center; /* Centraliza o título */
+  
+}
+
+.card:hover {
+    height: 400px; /* Efeito de hover para aumentar a altura */
+}
+
+.card .img-box {
+    position: absolute;
+    width: 250px;
+    height: auto;
+    top: 0;
+    transition: 0.5s; /* Transição suave para a imagem */
+}
+
+.card:hover .img-box {
+    top: -100px; /* Move a imagem para cima no hover */
+    transform: scale(0.75); /* Escala a imagem */
+}
+
+.card .img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card .content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: absolute;
+    top: 250px; 
+    width: 100%;
+    font-size: 15px;
+    padding: 20px; /* Ajuste o padding conforme necessário */
+    text-align: center; /* Centraliza o texto */
+    overflow: hidden;
+    transition: 0.5s; /* Transição suave */
+    align-items: center; /* Centraliza o conteúdo dentro do card */
+}
+
+.card:hover .content {
+    top: 130px; /* Move o conteúdo para cima no hover */
+    height: 250px; /* Aumenta a altura do conteúdo */
+}
+
+.card-btn {
+    background: #cf7c4b;
+    padding: 12px;
+    color: #fff;
+    width: 20vh; /* Largura do botão */
+    text-align: center; /* Centraliza o texto dentro do botão */
+    text-decoration: none;
+    border-radius: 8px;
+    display: flex; /* Usar flexbox para centralizar conteúdo */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+.card {
+    position: relative;
+  }
+  
+  .img-box {
+    position: relative;
+  }
+  .content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 140, 87, 0.897);
+    display: flex;
+    align-items: center;  /* Alinha verticalmente */
+    justify-content: center;  /* Alinha horizontalmente */
+    font-size: 25px;
+    color: #fafafa;
+    text-align: center;  /* Garante que o texto esteja centralizado */
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    line-height: 1.6;  /* Ajuste para aumentar o espaçamento entre as linhas */
+  }
+  
+  
+  .img-box:hover .content-overlay {
+    opacity: 1;
+  }
+  .card .img-box {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .card .img-box img {
+    object-fit: cover;
+    border-radius: 50px;
+  }
+  
+  .content-overlay {
+    border-radius: 50px;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card-btn {
+    margin-top: 20px;
+  }
+
+  .subtitulo-card {
+    background-color: #f09174;
+    color: #ece7f0;
+    text-align: center;
+    padding: 10px;
+    border-radius: 25px;
+    width: 80%;
+    position: absolute;
+    top: 30px; /* Ajuste conforme necessário */
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.3s;
+  }
+  
+  .card:hover .subtitulo-card {
+    opacity: 0;
+  }

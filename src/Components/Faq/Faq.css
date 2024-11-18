@@ -1,0 +1,204 @@
+/* Resetando margens e preenchimentos globais */
+
+/* Estilos gerais da seção #faq */
+#faq {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Adicionando formas (shapes) no fundo */
+#faq::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -20%;
+  width: 40%;
+  height: 60%;
+  background-color: rgb(255, 252, 250);
+  border-radius: 50%;
+  z-index: 1;
+  animation: moveShape 6s infinite ease-in-out;
+}
+
+#faq::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  right: -15%;
+  width: 50%;
+  height: 50%;
+  background-color: rgba(255, 254, 254, 0.952);
+  border-radius: 30% 0 50% 50%;
+  z-index: 1;
+  animation: moveShape 6s infinite ease-in-out reverse;
+}
+
+@keyframes moveShape {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20%, 20%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Estilo do título da FAQ */
+#faq-title {
+  font-size: 2.8rem;
+  color: #ec7e6b;
+  letter-spacing: 2px;
+ padding-bottom: 5rem;
+  text-align: center;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+/* Efeito de hover no título */
+#faq-title:hover {
+  color: #cca8a4;
+  transform: translateY(-3px); /* Leve movimento para cima */
+}
+
+/* Estilo do container das perguntas e respostas */
+.faq-container {
+  width: 100vh;
+  max-width: 900px; /* Limita a largura do container */
+  height: auto;
+  border-radius: 50px;
+  padding: 2rem;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+/* Estilo dos itens da FAQ */
+.faq-item {
+  margin-bottom: 20px;
+}
+
+/* Estilo das perguntas */
+.question {
+  background-color: #fab288;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 18px 25px;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover para as perguntas */
+.question:hover {
+  background-color: #7fad71cc;
+  transform: translateY(-5px); /* Levanta a pergunta para dar interatividade */
+}
+
+/* Ícone da seta para expandir/colapsar */
+.question svg {
+  transition: transform 0.3s ease;
+}
+
+/* Quando a pergunta estiver aberta, rotaciona o ícone */
+.question.open svg {
+  transform: rotate(180deg);
+}
+
+/* Estilo das respostas */
+.answer {
+  padding: 18px 25px;
+  margin-top: 15px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  border: 1px solid #e0e0e0;
+  display: none;
+  transition: all 0.3s ease;
+}
+
+/* Exibindo a resposta */
+.answer.open {
+  display: block;
+  background-color: #eef4f2;
+  border-color: #ccc;
+}
+
+/* Media Queries para responsividade */
+
+/* Telas de até 1024px */
+@media (max-width: 1024px) {
+  #faq-title {
+    font-size: 2.2rem; /* Ajusta a fonte do título para telas médias */
+  }
+
+  .faq-container {
+    padding: 1.5rem; /* Ajusta o padding do container */
+  }
+
+  .question {
+    font-size: 1.1rem; /* Ajusta o tamanho da fonte das perguntas */
+    padding: 14px 20px; /* Ajusta o padding das perguntas */
+  }
+
+  .answer {
+    padding: 15px 20px; /* Ajusta o padding das respostas */
+  }
+}
+
+/* Telas de até 768px */
+@media (max-width: 768px) {
+  #faq-title {
+    font-size: 1.8rem; /* Ajusta a fonte do título para telas menores */
+  }
+
+  .faq-container {
+    padding: 1rem; /* Ajusta o padding do container */
+    width: 90%; /* Aumenta a largura do container para 90% */
+  }
+
+  .question {
+    font-size: 1rem; /* Ajusta o tamanho da fonte das perguntas */
+    padding: 14px; /* Ajusta o padding das perguntas */
+  }
+
+  .answer {
+    padding: 14px; /* Ajusta o padding das respostas */
+  }
+}
+
+/* Telas de até 480px */
+@media (max-width: 480px) {
+  #faq-title {
+    font-size: 1.6rem; /* Ajusta a fonte do título para telas pequenas */
+  }
+
+  .faq-container {
+    padding: 1rem; /* Ajusta o padding do container */
+    width: 90%; /* Aumenta a largura do container para 90% */
+  }
+
+  .question {
+    font-size: 0.9rem; /* Ajusta o tamanho da fonte das perguntas */
+    padding: 12px; /* Ajusta o padding das perguntas */
+  }
+
+  .answer {
+    padding: 12px; /* Ajusta o padding das respostas */
+  }
+}

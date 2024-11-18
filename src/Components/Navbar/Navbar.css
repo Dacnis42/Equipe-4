@@ -1,0 +1,94 @@
+#nome {
+  color: #e46868; /* Cor escura para contraste */
+  font-family: "Great Vibes", cursive; /* Fonte estilizada */
+  letter-spacing: 2px; /* Espaçamento entre letras */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Sombra sutil no nome */
+}
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Fixa a navbar no topo da página */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #f8bf9162; /* Fundo branco para um visual clean */
+    padding: 15px 30px; /* Padding para espaçamento */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    z-index: 1000; /* Garante que a navbar fique acima do conteúdo */
+  }
+  
+  /* Logo */
+  .logo-img {
+    height: 10vh;
+    width: 5vh;
+  }
+  
+  /* Navbar - Navegação */
+  .navbar__links {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Links da Navbar */
+  .nav-link {
+    margin: 0 20px; /* Espaçamento entre os links */
+    font-size: 20px;
+    padding-right: 2%;
+    color: #f36a40; /* Cor escura para os links */
+    text-decoration: none; /* Remove o sublinhado */
+    transition: color 0.3s ease; /* Transição suave para a cor */
+  }
+  
+  /* Efeito de hover nos links */
+  .nav-link:hover {
+    color: #417c50; /* Cor ao passar o mouse */
+  }
+  
+  /* Ícone de hambúrguer */
+  .navbar__menu-icon {
+    display: none; /* Inicialmente escondido */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  
+  .navbar__menu-icon .bar {
+    width: 25px; /* Largura das barras */
+    height: 3px; /* Altura das barras */
+    background-color: #333; /* Cor das barras */
+    border-radius: 5px; /* Bordas arredondadas */
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    /* Exibe o ícone de hambúrguer em telas menores */
+    .navbar__menu-icon {
+      display: flex;
+    }
+  
+    /* Inicialmente, o menu estará escondido */
+    .navbar__links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background: #fff; /* Fundo branco */
+      position: absolute;
+      top: 60px; /* Distância do topo da navbar */
+      left: 0;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    }
+  
+    /* Quando o menu estiver aberto, o menu de navegação aparecerá */
+    .navbar__links.open {
+      display: flex;
+    }
+  
+    .nav-link {
+      margin: 10px 0; /* Margem vertical entre os links */
+      font-size: 18px; /* Tamanho da fonte */
+      text-align: center; /* Centraliza o texto */
+    }
+  }
