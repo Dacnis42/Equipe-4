@@ -1,0 +1,162 @@
+/* Estilos principais do Banco */
+.banco-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para o formulário de marcação */
+  .filtro {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  .filtro input {
+    padding: 10px;
+    width: 45%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+  }
+  
+  .filtro input[type="text"] {
+    width: 60%;
+  }
+  
+  .filtro input[type="date"] {
+    width: 35%;
+  }
+  
+  .filtro input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Alerta */
+  .alerta {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+  
+  /* Estilos da Tabela */
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .tabela th, .tabela td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .tabela th {
+    background-color: #007bff;
+    color: white;
+    font-size: 1.1rem;
+  }
+  
+  .tabela td {
+    background-color: #fafafa;
+    color: #333;
+  }
+  
+  .tabela tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+  
+  .tabela tr:hover td {
+    background-color: #f1f1f1;
+  }
+  
+  .tabela td[colspan="3"] {
+    text-align: center;
+    color: #888;
+  }
+  
+  /* Estilos do botão de excluir (lixeira) */
+  .excluir-btn {
+    padding: 8px 16px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .excluir-btn:hover {
+    background-color: #d9534f;
+  }
+  
+  .excluir-btn svg {
+    margin-right: 5px;
+    font-size: 1.2rem;
+  }
+  
+  /* Caso não haja marcações */
+  .sem-marcacoes {
+    text-align: center;
+    color: #888;
+    font-size: 1rem;
+  }
+  
+  /* Estilos do botão Voltar para Home */
+  .voltar-home {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .voltar-btn {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .voltar-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsividade para dispositivos móveis */
+  @media (max-width: 768px) {
+    .filtro {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .filtro input {
+      width: 90%;
+      margin-bottom: 15px;
+    }
+  
+    .tabela th, .tabela td {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  }
+  
