@@ -1,83 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
-function Login() {
+const Login = ({ isOpen, onClose }) => {
+  const [id, setId] = useState('');
+  const [senha, setSenha] = useState('');
   const navigate = useNavigate();
-  const [showLogin, setShowLogin] = useState(false);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (e.ctrlKey && e.key === 'y') {
-        setShowLogin(true);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, []);
+  if (!isOpen) return null;
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    if (username === 'LSAIT' && password === '7772') {
+ 
+    if (id === 'tai77' && senha === '7772') {
+      onClose();  
+      setId('');
+      setSenha('');
       navigate('/banco');
     } else {
-      alert('Credenciais inválidas!');
+      alert('ID ou senha incorretos!');
     }
   };
 
-  const handleCloseLogin = () => {
-    setShowLogin(false);
+  const handleSair = () => {
+    onClose();  
+    navigate('/');
   };
 
   return (
-    <div>
-      {showLogin && (
-        <div className="login-overlay">
-          <div className="login-form">
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-              <div>
-                <label htmlFor="username">Usuário:</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="password">Senha:</label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="button-container">
-                <button type="submit">Entrar</button>
-                <button
-                  type="button"
-                  onClick={handleCloseLogin}
-                  className="logout-btn"
-                >
-                  Sair
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+    <div className={`modal-overlay ${isOpen ? 'show' : ''}`}>
+      <div className="modal">
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <input 
+            type="text" 
+            placeholder="Digite seu ID" 
+            value={id} 
+            onChange={(e) => setId(e.target.value)}
+          />
+          <input 
+            type="password" 
+            placeholder="Digite sua senha" 
+            value={senha} 
+            onChange={(e) => setSenha(e.target.value)}
+          />
+          <button type="submit">Entrar</button>
+          <button type="button" onClick={handleSair}>Sair</button>
+        </form>
+      </div>
     </div>
   );
-}
+};
 
 export default Login;

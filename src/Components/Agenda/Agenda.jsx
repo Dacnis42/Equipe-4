@@ -34,8 +34,8 @@ const Agenda = () => {
                 </button>
             ) : (
                 <>
-                    <div className="modal">
-                        <div className="modal-content">
+                    <div className="modal-agenda">
+                        <div className="modal-content-agenda">
                             <iframe
                                 src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2jUAubh1q9Xp8EmOxvFJphiQ_75XrBUwRXp5A5e7-msWvshB9Lvirtbo8sNG8mgklwo7H1XagZ?gv=true"
                                 title="Agendamento de Compromissos"
