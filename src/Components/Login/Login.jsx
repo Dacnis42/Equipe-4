@@ -44,12 +44,13 @@ const Login = ({ isOpen, onClose }) => {
             value={senha} 
             onChange={(e) => setSenha(e.target.value)}
           />
-          <button type="submit">Entrar</button>
-          <button type="button" onClick={handleSair}>Sair</button>
+          <div className="buttons"> {/* Adicionando um contêiner para os botões */}
+            <button type="submit">Entrar</button>
+            <button className='closeButton' type="button" onClick={handleSair}>Sair</button>
+          </div>
         </form>
       </div>
     </div>
   );
-};
-
-export default Login;
+}
+export default Login;  

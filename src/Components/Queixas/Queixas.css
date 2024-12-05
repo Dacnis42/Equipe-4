@@ -8,7 +8,6 @@
     align-items: center;
     width: 70vw; /* Largura total da tela */
     height: 60vh; /* Seção com altura ajustada */
-    background-color: #f3c9a6;
     padding: 40px;
     margin-left: 15%;
     position: relative;
@@ -167,6 +166,7 @@
     #queixas {
         height: 50vh; /* Seção mais compacta para telas menores */
         padding: 30px;
+       left: 2%;
     }
 
     .queixa-titulo {
@@ -188,7 +188,7 @@
         width: 40px;
     }
 }
-
+/* __________________________________________________ */
 @media (max-width: 480px) {
     #queixas {
         height: 40vh; /* Seção bem compacta */

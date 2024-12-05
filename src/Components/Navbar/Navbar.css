@@ -36,6 +36,7 @@
     margin: 0 20px; /* Espaçamento entre os links */
     font-size: 20px;
     padding-right: 2%;
+    left: 0%;
     color: #f36a40; /* Cor escura para os links */
     text-decoration: none; /* Remove o sublinhado */
     transition: color 0.3s ease; /* Transição suave para a cor */
@@ -62,7 +63,7 @@
   }
   
   /* Responsividade */
-  @media (max-width: 768px) {
+  @media (max-width: 780px) {
     /* Exibe o ícone de hambúrguer em telas menores */
     .navbar__menu-icon {
       display: flex;

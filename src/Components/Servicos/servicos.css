@@ -93,7 +93,7 @@
 }
 
 .card-btn {
-    background: #cf7c4b;
+    background: #963c07;
     padding: 12px;
     color: #fff;
     width: 20vh; /* Largura do botão */
@@ -118,7 +118,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 140, 87, 0.897);
+    background-color: rgba(255, 148, 106, 0.897);
     display: flex;
     align-items: center;  /* Alinha verticalmente */
     justify-content: center;  /* Alinha horizontalmente */
@@ -175,4 +175,22 @@
   
   .card:hover .subtitulo-card {
     opacity: 0;
+  }
+
+
+  @media (max-width: 768px) {
+    #servicos{
+        height: 80vh; /* Seção mais compacta para telas menores */
+        padding: 10px;
+        padding-left: 10%;
+        background-color: #963c07;
+    }
+
+    .servicos-titulo{
+        font-size: 1rem;
+    }
+
+    .card{
+        font-size: 2rem;
+    }
   }
