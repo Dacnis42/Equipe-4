@@ -43,7 +43,6 @@ const enviarEmail = async (nome, email, dataConsulta, horarioConsulta) => {
     return;
   }
 
-
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -54,6 +53,7 @@ const enviarEmail = async (nome, email, dataConsulta, horarioConsulta) => {
 
 
   const psicologaEmail = process.env.PSICOLOGA_EMAIL;  // E-mail da psicóloga
+  const mtLink = 'https://meet.google.com/yme-fjsm-zdt'; // Link para a consulta
 
 
   // Verificar se o e-mail da psicóloga está correto
@@ -75,7 +75,8 @@ const enviarEmail = async (nome, email, dataConsulta, horarioConsulta) => {
     from: process.env.EMAIL_USER,
     to: email,  // E-mail do paciente
     subject: `Confirmação de Consulta`,
-    text: `Olá ${nome},\n\nSua consulta está marcada para o dia ${dataConsulta} às ${horarioConsulta}.\nObrigado por marcar uma consulta conosco!\n\nAtenciosamente,\nPsicóloga.`,
+    text: `Olá ${nome},\n\nSua consulta está marcada para o dia ${dataConsulta}/n às ${horarioConsulta}.\nObrigado ${mtLink} por marcar uma consulta conosco!\n\nAtenciosamente,\nPsicóloga. /meet.google.com/yme-fjsm-zdt`,
+    text: `O su link e ${mtLink}.`
   };
 
 
@@ -227,14 +228,31 @@ app.get('/api/agendamentos/:id', (req, res) => {
 
 
 // Deletar agendamento (DELETE)
-app.delete('/api/agendamentos/:id', (req, res) => {
-  const id = req.params.id;
+app.delete('/api/agendamentos/:id?', (req, res) => {
+  const { id } = req.params; // Pegando o ID da URL, se presente
+  const { data_consulta, horario_consulta } = req.body; // Pegando data_consulta e horario_consulta do corpo da requisição
 
 
-  const query = 'DELETE FROM agendamentos WHERE id = ?';
+  let query;
+  let queryParams = [];
 
 
-  db.query(query, [id], (err, result) => {
+
+
+  if (id) {
+    query = 'DELETE FROM agendamentos WHERE id = ?';
+    queryParams = [id];
+  }
+ 
+  else if (data_consulta && horario_consulta) {
+    query = 'DELETE FROM agendamentos WHERE data_consulta = ? AND horario_consulta = ?';
+    queryParams = [data_consulta, horario_consulta];
+  } else {
+    return res.status(400).send('Por favor, forneça um ID ou a combinação de data_consulta e horario_consulta.');
+  }
+
+
+  db.query(query, queryParams, (err, result) => {
     if (err) {
       console.error('Erro ao deletar agendamento:', err);
       return res.status(500).send('Erro ao deletar agendamento');
@@ -251,9 +269,9 @@ app.delete('/api/agendamentos/:id', (req, res) => {
 });
 
 
-// Iniciar o servidor
+
+
+//Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
 });
-
-

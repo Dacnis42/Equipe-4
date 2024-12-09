@@ -28,8 +28,8 @@ const Login = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'show' : ''}`}>
-      <div className="modal">
+    <div className={`modal-overlay-login ${isOpen ? 'show' : ''}`}>
+      <div className="modal-login">
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <input 

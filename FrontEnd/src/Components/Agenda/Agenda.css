@@ -1,242 +1,344 @@
-/* Estilos gerais */
+/* Estilos globais */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin: 30px 0;
+  font-size: 2.5rem;
+  color: #007bff;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ee7b5f;
+}
+
+.close-btn:hover {
+  color: #9e6e68;
+}
+
+/* Calendário */
+.fc-toolbar {
+  background-color: #ffaa95;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.fc-daygrid-day {
+  font-size: 1rem;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.fc-daygrid-day:hover {
+  background-color: #fca972b7;
+  color: white;
+  cursor: pointer;
+}
+
+.fc-daygrid-day.fc-day-today {
+  background-color: #f8f9fa;
+}
+
+/* Botões do Modal */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+input,
+select,
+textarea {
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
+  width: 100%;
+}
+
+select {
+  width: 100%;
+  background-color: #fff;
+}
+
+textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+/* Botões de seleção de horário */
+button.selected {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+button.selected:hover {
+  background-color: #218838;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Estilo geral da aplicação */
 .App {
-    padding: 40px 20px;
-  }
- 
-  /* Botão para mostrar o calendário */
-  .show-calendar-btn {
-    background: #f78b59;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    font-size: 2.1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .show-calendar-btn:hover {
-    background: #f0b99f;
-    transform: translateY(-2px);
-  }
-  
-  /* Modal de Calendário e Horários */
-  .calendar-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(156, 150, 150, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 20px;
-  }
-  
-  .close-calendar-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #ac524a;
-    color: white;
-    padding: 15px;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.4rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .close-calendar-btn:hover {
-    background-color: #c0392b;
-    transform: scale(1.1);
-  }
-  
-  /* Calendário */
-  .fc {
-    width: 100%;
-    max-width: 900px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: none;
-  }
-  
-  .fc-header-toolbar {
-    background-color: #faceb2;
-    color: white;
-    border-radius: 12px 12px 0 0;
-    padding: 10px 0;
-  }
-  
-  .fc-daygrid-day {
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .fc-daygrid-day:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .fc-daygrid-day.fc-day-today {
-    background-color: #e3f7f0;
-  }
-  
-  .fc-daygrid-day.fc-day-saturday, .fc-daygrid-day.fc-day-sunday {
-    background-color: #d86b38;
-  }
-  
-  .fc-daygrid-day.fc-day-saturday:hover, .fc-daygrid-day.fc-day-sunday:hover {
-    background-color: #8f2727;
-  }
-  
-  /* Seletor de horário dentro do modal */
-  .timeslot-container {
-    margin-top: 20px;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(118, 196, 111, 0.1);
-  }
-  
-  .timeslot-container h2 {
-    font-size: 1.4rem;
-    color: #333;
-    font-weight: 600;
-  }
-  
-  .timeslot-container button {
-    background-color: #ffbd97;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 1.1rem;
-    border-radius: 8px;
-    margin: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .timeslot-container button.selected {
-    background-color: #3a994fd8;
-  }
-  
-  .timeslot-container button:hover {
-    background-color: #6faa7b;
-    transform: translateY(-2px);
-  }
-  
-  /* Modal de Agendamento */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    padding: 20px;
-  }
-  
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilo dos botões */
+button {
+  background-color: #ffb695;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 10px 0;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #59975c;
+}
+
+button:disabled {
+  background-color: #aaa;
+}
+
+/* Estilo dos modais */
+.calendar-modal,
+.form-modal {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 999; /* Garante que o modal fique acima de outros elementos */
+}
+
+.calendar-overlay,
+.form-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998; /* A sobreposição do modal deve ser menor do que o modal em si */
+}
+
+.close-modal {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.close-modal:hover {
+  background-color: #e53935;
+}
+
+/* Estilo do formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+textarea {
+  height: 40px;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #4CAF50;
+  outline: none;
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+select,
+textarea {
+  font-size: 1rem;
+}
+
+/* Estilo da agenda (botões de horários) */
+button.selected {
+  background-color: #2196F3;
+}
+
+button.selected:hover {
+  background-color: #1976D2;
+}
+
+button:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* Estilo para o calendário */
+.fc {
+  max-width: 100%;
+  margin: 0 auto;
+  z-index: 1; /* Garante que o calendário tenha o z-index mais baixo */
+}
+
+.fc .fc-daygrid-day {
+  padding: 10px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: #f0f0f0;
+}
+
+.fc .fc-daygrid-day:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
   .modal-content {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    width: 100%;
-    overflow: hidden;
+    width: 90%;
+    padding: 15px;
   }
-  
-  .modal-content h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
-    font-weight: bold;
+
+  h1 {
+    font-size: 2rem;
   }
-  
-  .modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+
+  input,
+  select,
+  textarea {
+    font-size: 0.9rem;
   }
-  
-  .modal-content input,
-  .modal-content select,
-  .modal-content textarea {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+
+  button {
+    font-size: 0.9rem;
   }
-  
-  .modal-content input:focus,
-  .modal-content select:focus,
-  .modal-content textarea:focus {
-    border-color: #c16a42;
-    outline: none;
-  }
-  
-  /* Ações dentro do modal */
-  .modal-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-  }
-  
-  .modal-actions button {
-    padding: 12px 24px;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .modal-actions button[type="submit"] {
-    background-color: #2788b4;
-    color: white;
-    border: none;
-  }
-  
-  .modal-actions button[type="submit"]:hover {
-    background-color: #377045;
-    transform: translateY(-2px);
-  }
-  
-  .modal-actions button[type="button"] {
-    background-color: #e74a3b;
-    color: white;
-    border: none;
-  }
-  
-  .modal-actions button[type="button"]:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
-  }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
-    .modal-content {
-      padding: 20px;
-      width: 90%;
-    }
-  
-    .timeslot-container button {
-      width: 100%;
-      margin: 5px 0;
-    }
-  
-    .modal-actions button {
-      width: 100%;
-      margin: 5px 0;
-    }
-  }
-  
+}

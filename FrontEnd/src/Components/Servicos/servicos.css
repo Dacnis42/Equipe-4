@@ -118,12 +118,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 148, 106, 0.897);
+    background-color: rgba(255, 255, 255, 0.973);
     display: flex;
     align-items: center;  /* Alinha verticalmente */
     justify-content: center;  /* Alinha horizontalmente */
     font-size: 25px;
-    color: #fafafa;
+    color: #b96520;
     text-align: center;  /* Garante que o texto esteja centralizado */
     padding: 20px;
     opacity: 0;
@@ -157,6 +157,7 @@
   
   .card-btn {
     margin-top: 20px;
+    background-color: #466151;
   }
 
   .subtitulo-card {

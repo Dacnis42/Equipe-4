@@ -18,12 +18,13 @@ const Agenda = () => {
     telefone: '',
     descricao: ''
   });
-  const [availableTimes, setAvailableTimes] = useState([]);
+  const [availableTimes, setAvailableTimes] = useState([
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'
+  ]);
   const [bookedTimes, setBookedTimes] = useState({});
   const [loading, setLoading] = useState(false);
-  const [showCalendarModal, setShowCalendarModal] = useState(false); // Modal de calendário
-  const [showFormModal, setShowFormModal] = useState(false); // Modal de cadastro de agendamento
-
+  const [isModalOpen, setIsModalOpen] = useState(false); // Controle do estado do modal
+  const [isDateSelected, setIsDateSelected] = useState(false); // Verifica se uma data foi selecionada
   const originalTimes = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'
   ];
@@ -70,7 +71,6 @@ const Agenda = () => {
 
   const handleDateClick = (info) => {
     const selectedDate = new Date(info.dateStr).toISOString().split('T')[0];
-
     if (selectedDate < formattedToday) {
       alert('Não é possível agendar para datas anteriores a hoje.');
       return;
@@ -78,147 +78,133 @@ const Agenda = () => {
 
     const selectedDay = new Date(info.dateStr).getUTCDay();
     if (selectedDay === 0 || selectedDay === 6) {
-      alert('Agendamentos não estão disponíveis nos finais de semana.');
+      alert('Agendamentos não são permitidos nos finais de semana.');
       return;
     }
 
-    setSelectedDate(selectedDate); // Atualiza a data selecionada sem fechar o modal
+    setSelectedDate(info.dateStr);
+    setIsDateSelected(true); // Indicar que a data foi selecionada
   };
 
   const handleTimeSelect = (time) => {
     setSelectedTime(time);
-    setShowFormModal(true); // Abre o modal de cadastro após selecionar a hora
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!selectedDate || !selectedTime) {
-      alert('Por favor, selecione uma data e um horário.');
+    if (parseInt(formData.idade) < 14) {
+      alert('Você deve ter 14 anos ou mais para agendar uma consulta.');
       return;
     }
 
-    const data = {
-      nome: formData.nome,
-      sobrenome: formData.sobrenome,
-      sexo: formData.sexo,
-      email: formData.email,
-      idade: formData.idade,
-      telefone: formData.telefone,
-      descricao: formData.descricao,
-      data_consulta: selectedDate,
-      horario_consulta: selectedTime
-    };
+    if (!selectedDate || !selectedTime) {
+      alert('Selecione uma data e horário.');
+      return;
+    }
+
+    const data = { ...formData, dataConsulta: selectedDate, horarioConsulta: selectedTime };
 
     try {
       await axios.post('http://localhost:5000/api/agendamentos', data);
-      alert('Consulta agendada com sucesso!');
-      setFormData({
-        nome: '',
-        sobrenome: '',
-        sexo: '',
-        email: '',
-        idade: '',
-        telefone: '',
-        descricao: ''
-      });
-      setSelectedDate(null);
+      alert('Consulta marcada com sucesso!');
+
+      const updatedBookedTimes = {
+        ...bookedTimes,
+        [selectedDate]: [...(bookedTimes[selectedDate] || []), selectedTime]
+      };
+      setBookedTimes(updatedBookedTimes);
+
+      setFormData({ nome: '', sobrenome: '', sexo: '', email: '', idade: '', telefone: '', descricao: '' });
       setSelectedTime(null);
-      setShowFormModal(false); // Fecha o modal de cadastro
+      setAvailableTimes(originalTimes.filter(time => !updatedBookedTimes[selectedDate].includes(time)));
+      closeModal(); // Fecha o modal após marcar a consulta
     } catch (error) {
-      console.error('Erro ao agendar consulta:', error);
-      alert('Ocorreu um erro ao agendar a consulta.');
+      console.error('Ocorreu um erro ao tentar marcar a consulta:', error.message);
+      alert('Ocorreu um erro ao tentar marcar a consulta.');
     }
+  };
+
+  const dayCellClassNames = (info) => {
+    const day = info.date.getUTCDay();
+    return day === 0 || day === 6 ? 'fc-weekend' : '';
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsDateSelected(false); // Resetar o estado de data selecionada
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true); // Abre o modal ao clicar no botão
+    setSelectedDate(null); // Limpa a data ao abrir o modal
+    setSelectedTime(null); // Limpa o horário ao abrir o modal
   };
 
   return (
     <div className="App">
-      <button className="show-calendar-btn" onClick={() => setShowCalendarModal(true)}>
-        Marcar Consulta
+      <button onClick={openModal} className="btn-marcar-consulta">
+        Marque sua consulta
       </button>
 
-      {/* Modal de Calendário */}
-      {showCalendarModal && (
-        <div className="calendar-modal">
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay">
           <div className="modal-content">
-            <button className="close-calendar-btn" onClick={() => setShowCalendarModal(false)}>
-              X
-            </button>
+            <button className="close-btn" onClick={closeModal}>X</button>
 
-            <FullCalendar
-              plugins={[dayGridPlugin, interactionPlugin]}
-              locale={ptBrLocale}
-              initialView="dayGridMonth"
-              dateClick={handleDateClick}
-              events={[]}
-            />
+            {/* Se a data foi selecionada, mostra a escolha de horários */}
+            {isDateSelected ? (
+              <>
+                <h2>Escolha o horário para o dia {selectedDate}</h2>
+                <div>
+                  {availableTimes.map(time => (
+                    <button
+                      key={time}
+                      onClick={() => handleTimeSelect(time)}
+                      className={selectedTime === time ? 'selected' : ''}
+                    >
+                      {time}
+                    </button>
+                  ))}
+                </div>
 
-            {selectedDate && (
-              <div className="timeslot-container">
-                <h2>Selecione um horário para o dia {selectedDate}</h2>
-                {availableTimes.map((time, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleTimeSelect(time)}
-                    className={selectedTime === time ? 'selected' : ''}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
+                {selectedTime && (
+                  <form onSubmit={handleSubmit}>
+                    <input type="text" name="nome" value={formData.nome} onChange={handleInputChange} placeholder="Nome" required />
+                    <input type="text" name="sobrenome" value={formData.sobrenome} onChange={handleInputChange} placeholder="Sobrenome" required />
+                    <select name="sexo" value={formData.sexo} onChange={handleInputChange} required>
+                      <option value="">Selecione o sexo</option>
+                      <option value="m">Masculino</option>
+                      <option value="f">Feminino</option>
+                    </select>
+                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" required />
+                    <input type="number" name="idade" value={formData.idade} onChange={handleInputChange} placeholder="Idade" required />
+                    <input type="text" name="telefone" value={formData.telefone} onChange={handleInputChange} placeholder="Telefone" required />
+                    <textarea name="descricao" value={formData.descricao} onChange={handleInputChange} placeholder="Descrição do problema (opcional)" />
+                    <button type="submit">Marcar Consulta</button>
+                  </form>
+                )}
+              </>
+            ) : (
+              <>
+                <FullCalendar
+                  plugins={[dayGridPlugin, interactionPlugin]}
+                  initialView="dayGridMonth"
+                  dateClick={handleDateClick}
+                  locales={[ptBrLocale]}
+                  locale="pt-br"
+                  firstDay={1}
+                  timeZone="local"
+                  dayCellClassNames={dayCellClassNames}
+                />
+              </>
             )}
-          </div>
-        </div>
-      )}
-
-      {/* Modal de Cadastro */}
-      {showFormModal && (
-        <div className="calendar-modal">
-          <div className="modal-content">
-            <button className="close-calendar-btn" onClick={() => setShowFormModal(false)}>
-              X
-            </button>
-
-            <h2>Cadastro de Consulta</h2>
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Nome"
-                value={formData.nome}
-                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Sobrenome"
-                value={formData.sobrenome}
-                onChange={(e) => setFormData({ ...formData, sobrenome: e.target.value })}
-                required
-              />
-              <input
-                type="email"
-                placeholder="E-mail"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-              />
-              <input
-                type="text"
-                placeholder="Telefone"
-                value={formData.telefone}
-                onChange={(e) => setFormData({ ...formData, telefone: e.target.value })}
-                required
-              />
-              <textarea
-                placeholder="Descrição"
-                value={formData.descricao}
-                onChange={(e) => setFormData({ ...formData, descricao: e.target.value })}
-              />
-              <div className="modal-actions">
-                <button type="submit">Confirmar Agendamento</button>
-                <button type="button" onClick={() => setShowFormModal(false)}>Cancelar</button>
-              </div>
-            </form>
           </div>
         </div>
       )}
