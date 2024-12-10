@@ -19,45 +19,43 @@ const Agenda = () => {
     descricao: ''
   });
   const [availableTimes, setAvailableTimes] = useState([
-    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00' 
   ]);
   const [bookedTimes, setBookedTimes] = useState({});
   const [loading, setLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Controle do estado do modal
-  const [isDateSelected, setIsDateSelected] = useState(false); // Verifica se uma data foi selecionada
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDateSelected, setIsDateSelected] = useState(false);
   const originalTimes = [
-    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'
+    '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00' 
   ];
 
   const today = new Date();
   const formattedToday = today.toISOString().split('T')[0];
 
   useEffect(() => {
-    const fetchBookedTimes = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get('http://localhost:5000/api/agendamentos');
-        const agendamentos = response.data;
+    // Carregar estado do localStorage
+    const savedBookedTimes = localStorage.getItem('bookedTimes');
+    if (savedBookedTimes) {
+      setBookedTimes(JSON.parse(savedBookedTimes));
+    }
 
-        const newBookedTimes = {};
-        agendamentos.forEach(agendamento => {
-          if (!newBookedTimes[agendamento.data_consulta]) {
-            newBookedTimes[agendamento.data_consulta] = [];
-          }
-          newBookedTimes[agendamento.data_consulta].push(agendamento.horario_consulta);
-        });
+    const savedModalState = localStorage.getItem('isModalOpen');
+    if (savedModalState) {
+      setIsModalOpen(JSON.parse(savedModalState));
+    }
 
-        setBookedTimes(newBookedTimes);
-      } catch (error) {
-        console.error('Erro ao buscar agendamentos:', error.message);
-        alert('Ocorreu um erro ao buscar agendamentos.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBookedTimes();
+    const savedDateSelection = localStorage.getItem('isDateSelected');
+    if (savedDateSelection) {
+      setIsDateSelected(JSON.parse(savedDateSelection));
+    }
   }, []);
+
+  useEffect(() => {
+    // Salvar mudanças relevantes no localStorage
+    localStorage.setItem('bookedTimes', JSON.stringify(bookedTimes));
+    localStorage.setItem('isModalOpen', JSON.stringify(isModalOpen));
+    localStorage.setItem('isDateSelected', JSON.stringify(isDateSelected));
+  }, [bookedTimes, isModalOpen, isDateSelected]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -71,10 +69,10 @@ const Agenda = () => {
 
   const handleDateClick = (info) => {
     const selectedDate = new Date(info.dateStr).toISOString().split('T')[0];
-    if (selectedDate < formattedToday) {
-      alert('Não é possível agendar para datas anteriores a hoje.');
-      return;
-    }
+    // if (selectedDate < formattedToday) {
+    //   alert('Não é possível agendar para datas anteriores a hoje.');
+    //   return;
+    // }
 
     const selectedDay = new Date(info.dateStr).getUTCDay();
     if (selectedDay === 0 || selectedDay === 6) {
@@ -83,7 +81,7 @@ const Agenda = () => {
     }
 
     setSelectedDate(info.dateStr);
-    setIsDateSelected(true); // Indicar que a data foi selecionada
+    setIsDateSelected(true);
   };
 
   const handleTimeSelect = (time) => {
@@ -123,27 +121,22 @@ const Agenda = () => {
       setFormData({ nome: '', sobrenome: '', sexo: '', email: '', idade: '', telefone: '', descricao: '' });
       setSelectedTime(null);
       setAvailableTimes(originalTimes.filter(time => !updatedBookedTimes[selectedDate].includes(time)));
-      closeModal(); // Fecha o modal após marcar a consulta
+      closeModal();
     } catch (error) {
       console.error('Ocorreu um erro ao tentar marcar a consulta:', error.message);
       alert('Ocorreu um erro ao tentar marcar a consulta.');
     }
   };
 
-  const dayCellClassNames = (info) => {
-    const day = info.date.getUTCDay();
-    return day === 0 || day === 6 ? 'fc-weekend' : '';
-  };
-
   const closeModal = () => {
     setIsModalOpen(false);
-    setIsDateSelected(false); // Resetar o estado de data selecionada
+    setIsDateSelected(false);
   };
 
   const openModal = () => {
-    setIsModalOpen(true); // Abre o modal ao clicar no botão
-    setSelectedDate(null); // Limpa a data ao abrir o modal
-    setSelectedTime(null); // Limpa o horário ao abrir o modal
+    setIsModalOpen(true);
+    setSelectedDate(null);
+    setSelectedTime(null);
   };
 
   return (
@@ -152,13 +145,11 @@ const Agenda = () => {
         Marque sua consulta
       </button>
 
-      {/* Modal */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
             <button className="close-btn" onClick={closeModal}>X</button>
 
-            {/* Se a data foi selecionada, mostra a escolha de horários */}
             {isDateSelected ? (
               <>
                 <h2>Escolha o horário para o dia {selectedDate}</h2>
@@ -182,6 +173,7 @@ const Agenda = () => {
                       <option value="">Selecione o sexo</option>
                       <option value="m">Masculino</option>
                       <option value="f">Feminino</option>
+                      <option value="p">Prefiro Não Declarar</option>
                     </select>
                     <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="Email" required />
                     <input type="number" name="idade" value={formData.idade} onChange={handleInputChange} placeholder="Idade" required />
@@ -201,7 +193,6 @@ const Agenda = () => {
                   locale="pt-br"
                   firstDay={1}
                   timeZone="local"
-                  dayCellClassNames={dayCellClassNames}
                 />
               </>
             )}

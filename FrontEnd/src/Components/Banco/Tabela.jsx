@@ -6,6 +6,10 @@ import './Tabela.css';
 const Tabela = ({ updateAvailableTimes }) => {
   const [agendamentos, setAgendamentos] = useState([]);
   const [filters, setFilters] = useState({ nome: '', data: '' });
+  const [selectedDate, setSelectedDate] = useState('');
+  const [bookedTimes, setBookedTimes] = useState({});
+  const [availableTimes, setAvailableTimes] = useState([]);
+  const [originalTimes, setOriginalTimes] = useState([]);
 
   // Buscar agendamentos da API
   useEffect(() => {
@@ -22,31 +26,30 @@ const Tabela = ({ updateAvailableTimes }) => {
     fetchAgendamentos();
   }, []);
 
-  const handleDelete = async (agendamento) => {
+  // Cancelar um agendamento
+  const cancelBooking = async (time) => {
     try {
-      // Verifique se existe o _id ou id no objeto agendamento
-      const agendamentoId = agendamento._id || agendamento.id;
-  
-      if (!agendamentoId) {
-        alert('ID do agendamento não encontrado');
-        return;
-      }
-  
-      // Realiza a exclusão com o ID correto
-      await axios.delete(`http://localhost:5000/api/agendamentos/${agendamentoId}`);
-  
-      // Atualiza a lista de agendamentos após a exclusão
-      setAgendamentos((prevAgendamentos) =>
-        prevAgendamentos.filter((item) => item._id !== agendamentoId)
-      );
-      
-      // Atualiza os horários disponíveis no componente Agenda
-      updateAvailableTimes(agendamento.horario_consulta);
+      const data = { data_consulta: selectedDate, horario_consulta: time };
 
-      alert('Agendamento excluído com sucesso!');
+      // Faz o DELETE no banco
+      await axios.delete('http://localhost:5000/api/agendamentos', { data });
+
+      // Remove o horário dos agendamentos
+      const updatedBookedTimes = { ...bookedTimes };
+      const updatedBookings = updatedBookedTimes[selectedDate].filter((h) => h !== time);
+      updatedBookedTimes[selectedDate] = updatedBookings;
+      setBookedTimes(updatedBookedTimes);
+
+      // Salva os agendamentos no localStorage
+      localStorage.setItem('bookedTimes', JSON.stringify(updatedBookedTimes));
+
+      // Reabilita o horário na lista de horários disponíveis
+      setAvailableTimes(originalTimes.filter((t) => !updatedBookings.includes(t)));
+
+      alert('Agendamento cancelado com sucesso!');
     } catch (error) {
-      console.error('Erro ao excluir agendamento:', error.message);
-      alert('Ocorreu um erro ao excluir o agendamento.');
+      console.error('Erro ao cancelar o agendamento:', error.message);
+      alert('Erro ao tentar cancelar o agendamento.');
     }
   };
 
@@ -88,13 +91,28 @@ const Tabela = ({ updateAvailableTimes }) => {
                 <td>{agendamento.idade}</td>
                 <td>{agendamento.telefone}</td>
                 <td>
-                  <button onClick={() => handleDelete(agendamento)}>Excluir</button>
+                  <button onClick={() => cancelBooking(agendamento.horario_consulta)}>
+                    Cancelar
+                  </button>
                 </td>
               </tr>
             ))
           )}
         </tbody>
       </table>
+      {selectedDate && bookedTimes[selectedDate] && bookedTimes[selectedDate].length > 0 && (
+        <div>
+          <h3>Agendamentos já realizados para {selectedDate}</h3>
+          <ul>
+            {bookedTimes[selectedDate].map((time) => (
+              <li key={time}>
+                {time}
+                <button onClick={() => cancelBooking(time)}>Cancelar</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

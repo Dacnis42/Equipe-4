@@ -18,11 +18,16 @@
     z-index: 1000; /* Garante que a navbar fique acima do conteúdo */
   }
   
-  /* Logo */
-  .logo-img {
-    height: 10vh;
-    width: 5vh;
+
+  .brain-icon {
+    margin-right: 8px; 
+    font-size: 30px;   
   }
+  .navbar__title{
+    color: #f0885e;
+    display: flex;
+  }
+ 
   
   /* Navbar - Navegação */
   .navbar__links {

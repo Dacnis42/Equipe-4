@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './Navbar.css';
+import { FaBrain } from 'react-icons/fa'; // Importando o ícone do cérebro
 
 function Navbar() {
   // Estado para controlar se o menu está aberto ou fechado
@@ -12,10 +13,13 @@ function Navbar() {
 
   return (
     <>
-     
-
       <div className="navbar flex">
-       <span>Tainá Souza</span>
+        <div className="nav-titulo">
+        <span className="navbar__title">
+                   <FaBrain className="brain-icon" /> {/* Ícone do cérebro */}
+          Tainá Souza
+        </span>
+        </div>
 
         <div className="navbar__menu-icon" onClick={toggleMenu}>
           <span className="bar"></span>
@@ -23,7 +27,6 @@ function Navbar() {
           <span className="bar"></span>
         </div>
 
-    
         <nav className={`navbar__links ${menuOpen ? 'open' : ''}`}>
           <a className="nav-link" href="#home">Home</a>
           <a className="nav-link" href="#sobre">Sobre Mim</a>
@@ -37,3 +40,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

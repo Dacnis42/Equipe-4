@@ -14,7 +14,7 @@ const Servicos = () => {
               <div className="content-overlay">
                 <p>O atendimento psicológico presencial oferece acolhimento e conexão direta. 
                   Cuide de sua saúde mental com a confiança e o conforto de um atendimento pessoal..</p>
-                <a href="./home" className="card-btn">Agende</a>
+                <a href="#home" className="card-btn">Agende</a>
               </div>
             </div>
             <h2 className="subtitulo-card">Atendimento Presencial</h2>
@@ -29,7 +29,7 @@ const Servicos = () => {
                 <p>
                 O atendimento psicológico online oferece 
                 comodidade, privacidade e flexibilidade. Cuide de sua saúde mental com praticidade, de onde estiver!</p>
-                <a href="./home" className="card-btn">Agende</a>
+                <a href="#home" className="card-btn">Agende</a>
               </div>
             </div>
             <h2 className="subtitulo-card">Atendimento Online</h2>

@@ -1,10 +1,8 @@
 /* Estilos globais */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f7fa;
-  color: #333;
   margin: 0;
   padding: 0;
+ background-color: white;
 }
 
 h1 {
@@ -90,6 +88,17 @@ h1 {
 .fc-daygrid-day.fc-day-today {
   background-color: #f8f9fa;
 }
+
+
+.btn-marcar-consulta {
+  background-color: #ffa673;
+  padding: 5% 20px;
+  font-size: 1.8rem;
+  border-radius: 50px;
+  animation: flutuar 2s ease-in-out infinite alternate;
+}
+
+  
 
 /* Botões do Modal */
 button {

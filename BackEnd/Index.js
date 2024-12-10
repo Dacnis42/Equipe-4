@@ -76,7 +76,7 @@ const enviarEmail = async (nome, email, dataConsulta, horarioConsulta) => {
     to: email,  // E-mail do paciente
     subject: `Confirmação de Consulta`,
     text: `Olá ${nome},\n\nSua consulta está marcada para o dia ${dataConsulta}/n às ${horarioConsulta}.\nObrigado ${mtLink} por marcar uma consulta conosco!\n\nAtenciosamente,\nPsicóloga. /meet.google.com/yme-fjsm-zdt`,
-    text: `O su link e ${mtLink}.`
+    text: `O seu link Para consulta ${mtLink}.`
   };
 
 
