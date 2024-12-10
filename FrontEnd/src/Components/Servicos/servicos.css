@@ -42,8 +42,13 @@
 .servicos-titulo {
   color: #ff9564;
   font-size: 3rem;
+  margin-top: -50px; /* Subir o título */
+  width: 60%;
   margin-right: 5%;
   text-align: center;
+  border-radius: 80px; /* Cantos arredondados */
+  background-color: #ffc99cbb;
+  color: #ff956b;
 }
 
 .card:hover {
@@ -177,36 +182,62 @@
 }
 
 /* Media Query para telas menores */
-@media (max-width: 768px) {
+@media (max-width: 770px) {
   #servicos {
-      height: auto; /* Ajustando a altura para melhor adaptação em telas pequenas */
       padding: 10px;
-      background-color: #963c07;
   }
 
   .servicos-titulo {
-      font-size: 1.5rem; /* Reduzindo o tamanho da fonte para telas pequenas */
+      font-size: 3rem; /* Reduzindo o tamanho da fonte para telas pequenas */
+      padding: 0% 20%;
+      margin: auto;
+      border-radius: 80px; /* Cantos arredondados */
+      background-color: #ffc49cbb;
+      color: #e4865b;
   }
 
-  .card {
-      width: 80vw; /* Ajuste a largura dos cards para ocupar mais espaço na tela */
-      height: auto; /* Tornando a altura dos cards adaptável */
-      font-size: 1rem; /* Reduzindo o tamanho da fonte dentro dos cards */
+  .subtitulo-card {
+    margin: 0 auto; /* Centraliza horizontalmente */
+    position: relative; /* Torna o subtítulo posicionável */
+    top: -150px; /* Move o subtítulo para cima */
+    color: #fff; /* Cor do texto */
+    border-radius: 10px; /* Cantos arredondados */
+    text-align: center; /* Centraliza o texto */
+    width: fit-content; /* Ajusta largura ao conteúdo */
+ }
+ 
+ .card {
+     width: 40vw; /* Reduz a largura do card */
+     height: 30vw; /* Altura ajustável */
+     font-size: 0.9rem; 
+     left: 5%;
+     margin: 150px auto; /* Adiciona espaçamento abaixo do subtítulo */
+     border-radius: 20px;
+     position: relative; /* Permite posicionamento dos elementos internos */
+ }
+ 
+
+  .content-overlay{
+    border-radius: 50px;
+    top: 0;
+    width: auto;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
   }
 
   .card-container {
-      flex-direction: column; /* Coloca os cards em uma coluna para melhor visualização */
-      height: auto; /* Ajusta o layout para ocupar altura flexível */
+      flex-direction: row; /* Coloca os cards em uma coluna para melhor visualização */
       padding-top: 2%;
-      display: block;
+      display: flex;
+  
   }
 
-  .card .content {
-      font-size: 14px; /* Ajuste o tamanho da fonte dentro do conteúdo do card */
+   .card-btn {
+    
   }
 
-  .card .img-box {
-      width: 150px; /* Ajuste o tamanho da imagem dentro do card */
-      height: 150px;
-  }
 }

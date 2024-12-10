@@ -14,7 +14,7 @@
     overflow: hidden;
     z-index: 1;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-   
+    border-radius: 150px;
     transition: all 0.3s ease-in-out;
 }
 
@@ -22,7 +22,7 @@
 /* ================== */
 /* Efeito Hover para a Seção */
 #queixas:hover {
-    background-color: #f0e7d6; /* Cor de fundo muda ao passar o mouse */
+    background-color: #fdc19eb6; /* Cor de fundo muda ao passar o mouse */
     box-shadow: 0 6px 40px rgba(0, 0, 0, 0.15); /* Sombra mais intensa */
 }
 
@@ -162,11 +162,13 @@
 /* ================== */
 /* Responsividade para telas menores */
 /* ================== */
-@media (max-width: 768px) {
+@media (max-width: 770px) {
     #queixas {
-        height: 50vh; /* Seção mais compacta para telas menores */
+        width: 90vw;
+        height: 40vh; 
+        margin-left: 78px;
         padding: 30px;
-       left: 2%;
+        right: 7%;
     }
 
     .queixa-titulo {

@@ -97,7 +97,6 @@
   }
   
 
-
   .banner-img {
     width: 60%;
     height: 80vh;
@@ -131,18 +130,26 @@
   }
   /* _________________________________________ */
   /* Responsivo para tablets */
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 770px) {
     #home {
       padding-top: 20%;
       padding-left: 20%;
     }
   
     #cta .title {
-      font-size: 5rem;
+      font-size: 4.5rem;
     }
   
     #cta .description {
-      font-size: 30px;
+      font-size: 1.6rem;
+      margin-top: -10%;
+    }
+
+    .display {
+      margin-top: 10%;
+      margin-left: 10%;
+
+     
     }
   
   }

@@ -350,4 +350,9 @@ button:disabled {
   button {
     font-size: 0.9rem;
   }
+
+  .btn-marcar-consulta {
+    font-size: 22px;
+    border-radius: 10px;
+  }
 }
